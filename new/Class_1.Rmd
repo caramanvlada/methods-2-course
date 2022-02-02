@@ -1,0 +1,93 @@
+---
+title: "Exercise 1"
+author: "Sigurd Sørensen"
+date: "9/1/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Exercise 1
+```{r}
+#1.1 create a vector of the names of your study group
+study_names <- c("sigurd","laura","niels","sara")
+
+#1.2
+sg_sib <- c(4,1,0,2)
+
+#1.3
+study_names + 2
+sg_sib + 2 
+
+#1.4
+class(study_names) #String/character
+class(sg_sib) # numeric/integer
+
+#1.5
+sum(sg_sib) #sum of all siblings in the group
+sum(sg_sib[c(1,3)]) #sum of number 1 and 3 in the groups siblings.
+sum(sg_sib[1:3]) #sum of 1 to 3
+#1.6
+sg_sib[1] * sg_sib[2] #product = 4
+
+
+#Extra
+#1
+name <- Peter #You need "Peter" to specify it is a string.
+#2
+mix_vector <- append(sg_sib, "Word")
+#3
+mix_vector * 2 #you cannot as it isnt solely integers
+#4
+mix_vector <- mix_vector[-(5)] #or another way is could be... mix_vector <- mix_vector[1:4]
+mix_vector * 2 #Adding a string ealier changed the entire vector to a string
+as.numeric(mix_vector) * 2 #Change vector to numeric and you can multiply. 
+
+```
+## Exercise 2
+```{r}
+#2.1
+study_group_df <- data.frame(Names = as.character(study_names), Siblings = as.numeric(sg_sib))
+#2.2
+study_group_df$Gender <- as.factor(c("M","F","M","F"))
+#2.3
+study_group_df_new <- rbind(study_group_df, c("Emma",1,"F"))
+#2.4
+mean(study_group_df_new$Siblings) #error
+class(study_group_df_new$Siblings) #it has been turned into character
+study_group_df_new$Siblings <- as.numeric(study_group_df_new$Siblings)
+class(study_group_df_new$Siblings) #now it is numeric
+mean(study_group_df_new$Siblings)
+#2.5
+study_group_df_new <- cbind(study_group_df_new, actual_sib = c(4,0,3,6,3)) #adding a new collum of acutal siblings
+
+#2.6
+study_group_df_new <- cbind(study_group_df_new, sib_diff = study_group_df_new$Siblings - study_group_df_new$actual_sib) #Here I add another column with the difference between my guess and the real value of siblings. 
+
+```
+
+## Exercise 3
+```{r}
+#3.1
+sum(study_group_df_new$actual_sib == 3)
+
+#3.2
+sum(study_group_df_new$actual_sib >= 3)
+
+#3.3
+?length
+length(study_group_df_new$Names) #Shows me how many elements there are saved in an object.
+
+#3.4
+mean(c(2,7,"Cat")) #Cat is not numeric so cannot compute mean.
+
+#3.5
+#A comma is missing between the two statements. data.frame(names = names, n_pets = n_pets)
+
+#3.6
+subset(study_group_df_new, sib_diff == 0) #I only want those in the data frame where the sib_difference is 0. 
+```
+
